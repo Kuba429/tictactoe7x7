@@ -1,0 +1,10 @@
+CMakeFiles
+CPackConfig.cmake
+CPackSourceConfig.cmake
+CMakeCache.txt
+Makefile
+_deps
+cmake_install.cmake
+compile_commands.json
+.cache
+TicTacToe
