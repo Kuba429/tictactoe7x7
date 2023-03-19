@@ -24,7 +24,8 @@ endif()
 
 # Our Project
 
-add_executable(${PROJECT_NAME} main.c)
+file(GLOB SOURCES src/*.c)
+add_executable(${PROJECT_NAME} ${SOURCES})
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 
