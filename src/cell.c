@@ -8,6 +8,7 @@
 void DrawCells(int board[7][7]);
 void DrawCell(int board[7][7], int x, int y, Color color);
 Vector2 GetHoveredCellPosition();
+int indexToScreen(int n);
 
 void DrawCells(int board[7][7]) {
   for (int y = 0; y < 7; y++) {
@@ -22,9 +23,18 @@ void DrawCells(int board[7][7]) {
 
 void DrawCell(int board[7][7], int x, int y, Color color) {
   int cellWidth = GetScreenWidth() / 7;
-  x = x * (cellWidth + 1);
-  y = y * (cellWidth + 1);
-  DrawRectangle(x, y, cellWidth - 2, cellWidth - 2, color);
+  int screenX = x * (cellWidth + 1);
+  int screenY = y * (cellWidth + 1);
+  DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, color);
+  switch (board[y][x]) {
+    // colors for now, will be shapes in the future
+  case 1:
+    DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, RED);
+    break;
+  case 2:
+    DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, BLUE);
+    break;
+  }
 }
 
 Vector2 GetHoveredCellPosition() {
