@@ -1,38 +1,28 @@
 #include "cell.c"
 #include "dev_help.c"
 #include "raylib.h"
+#include "state.c"
 #include <stdio.h>
 
-void DrawFrame(int board[7][7]);
-void ResetBoard(int[7][7]);
+void DrawFrame(struct State state);
 
 int main() {
   InitWindow(596, 596, "TicTacToe 7x7");
-
-  int board[7][7];
-  ResetBoard(board);
+  struct State state = NewState();
 
   while (!WindowShouldClose()) {
-    DrawFrame(board);
+    DrawFrame(state);
   }
   return 0;
 }
 
-void DrawFrame(int board[7][7]) {
+void DrawFrame(struct State state) {
   BeginDrawing();
 
   ClearBackground(BLACK);
-  DrawCells(board);
+  DrawCells(state.board);
   DisplayMousePosition();
   DisplayCellPosition(GetMousePosition());
 
   EndDrawing();
-}
-
-void ResetBoard(int board[7][7]) {
-  for (int y = 0; y < 7; y++) {
-    for (int x = 0; x < 7; x++) {
-      board[y][x] = 0;
-    }
-  }
 }
