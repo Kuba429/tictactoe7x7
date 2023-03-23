@@ -1,18 +1,5 @@
+#include "../include/state.h"
 #include <stdbool.h>
-
-struct Position {
-  int x;
-  int y;
-};
-
-struct State {
-  bool isThinking;
-  bool isPlayersTurn;
-  bool isGameOver;
-  int board[7][7];
-};
-
-void ResetBoard(int[7][7]);
 
 struct State NewState() {
   struct State state;

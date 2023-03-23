@@ -1,9 +1,7 @@
-#include "cell.c"
+#include "../include/dev_help.h"
+#include "../include/cell.h"
 #include "raylib.h"
 #include <stdio.h>
-
-void DisplayMousePosition();
-void DisplayCellPosition(Vector2 mousePosition);
 
 void DisplayCellPosition(Vector2 mousePosition) {
   char str[10];

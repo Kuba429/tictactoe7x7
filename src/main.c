@@ -1,9 +1,8 @@
-#include "cell.c"
-#include "dev_help.c"
+#include "../include/main.h"
+#include "../include/cell.h"
+#include "../include/dev_help.h"
+#include "../include/state.h"
 #include "raylib.h"
-#include "state.c"
-
-void DrawFrame(struct State *state);
 
 int main() {
   InitWindow(596, 596, "TicTacToe 7x7");

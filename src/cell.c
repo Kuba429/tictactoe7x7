@@ -1,14 +1,8 @@
+#include "../include/cell.h"
 #include "raylib.h"
 
-#ifndef CELL
-#define CELL
 #define HOVER_COLOR                                                            \
   (Color) { 0, 0, 0, 30 }
-
-void DrawCells(int board[7][7]);
-void DrawCell(int board[7][7], int x, int y, Color color);
-Vector2 GetHoveredCellPosition();
-int indexToScreen(int n);
 
 void DrawCells(int board[7][7]) {
   for (int y = 0; y < 7; y++) {
@@ -45,4 +39,3 @@ Vector2 GetHoveredCellPosition() {
   return position;
 }
 
-#endif
