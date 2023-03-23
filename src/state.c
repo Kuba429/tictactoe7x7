@@ -1,11 +1,16 @@
+#include <stdbool.h>
 struct State {
+  bool isThinking;
+  bool isPlayersTurn;
   int board[7][7];
 };
 
 void ResetBoard(int[7][7]);
 
 struct State NewState() {
-  struct State state = {};
+  struct State state;
+  state.isThinking = false;
+  state.isPlayersTurn = true;
   ResetBoard(state.board);
   return state;
 }
