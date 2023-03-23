@@ -3,6 +3,7 @@
 #include "../include/dev_help.h"
 #include "../include/state.h"
 #include "raylib.h"
+#include <stdlib.h>
 
 int main() {
   InitWindow(596, 596, "TicTacToe 7x7");
