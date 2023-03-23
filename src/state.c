@@ -1,7 +1,14 @@
 #include <stdbool.h>
+
+struct Position {
+  int x;
+  int y;
+};
+
 struct State {
   bool isThinking;
   bool isPlayersTurn;
+  bool isGameOver;
   int board[7][7];
 };
 
@@ -11,6 +18,7 @@ struct State NewState() {
   struct State state;
   state.isThinking = false;
   state.isPlayersTurn = true;
+  state.isGameOver = false;
   ResetBoard(state.board);
   return state;
 }
