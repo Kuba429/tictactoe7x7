@@ -8,26 +8,31 @@
 #include <stdlib.h>
 
 int main() {
-  InitWindow(596, 596, "TicTacToe 7x7");
+  int windowSize = 596;
+  InitWindow(windowSize, windowSize, "TicTacToe 7x7");
   struct State state = NewState();
 
   while (!WindowShouldClose()) {
-    if (state.isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-      Vector2 cell = GetHoveredCellPosition();
-      int *val = &state.board[(int)cell.y][(int)cell.x];
-      if (*val == 0) {
-        *val = 1;
-        state.isPlayersTurn = false;
-      }
-    } else if (!state.isPlayersTurn && !state.isThinking) {
-      // make the best move
-      struct Position bestMove = GetBestMove(state.board);
-      state.board[bestMove.y][bestMove.x] = 2;
-      state.isPlayersTurn = true;
-    }
+    Update(&state);
     DrawFrame(&state);
   }
   return 0;
+}
+
+void Update(struct State *state) {
+  if (state->isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    Vector2 cell = GetHoveredCellPosition();
+    int *val = &state->board[(int)cell.y][(int)cell.x];
+    if (*val == 0) {
+      *val = 1;
+      state->isPlayersTurn = false;
+    }
+  } else if (!state->isPlayersTurn && !state->isThinking) {
+    // make the best move
+    struct Position bestMove = GetBestMove(state->board);
+    state->board[bestMove.y][bestMove.x] = 2;
+    state->isPlayersTurn = true;
+  }
 }
 
 void DrawFrame(struct State *state) {
