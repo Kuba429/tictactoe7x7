@@ -1,8 +1,10 @@
 #include "../include/main.h"
+#include "../include/ai.h"
 #include "../include/cell.h"
 #include "../include/dev_help.h"
 #include "../include/state.h"
 #include "raylib.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 int main() {
@@ -13,11 +15,15 @@ int main() {
     if (state.isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
       Vector2 cell = GetHoveredCellPosition();
       int *val = &state.board[(int)cell.y][(int)cell.x];
-      if (*val == 0)
+      if (*val == 0) {
         *val = 1;
-      state.isPlayersTurn = false;
+        state.isPlayersTurn = false;
+      }
     } else if (!state.isPlayersTurn && !state.isThinking) {
       // make the best move
+      struct Position bestMove = GetBestMove(state.board);
+      state.board[bestMove.y][bestMove.x] = 2;
+      state.isPlayersTurn = true;
     }
     DrawFrame(&state);
   }
