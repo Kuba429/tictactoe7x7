@@ -1,4 +1,5 @@
 #include "../include/cell.h"
+#include "../include/state.h"
 #include "raylib.h"
 
 #define HOVER_COLOR                                                            \
@@ -11,7 +12,7 @@ void DrawCells(int board[7][7]) {
     }
   }
   // highlight hovered cell
-  Vector2 cell = GetHoveredCellPosition();
+  struct Position cell = GetHoveredCellPosition();
   DrawCell(board, cell.x, cell.y, HOVER_COLOR);
 }
 
@@ -31,11 +32,10 @@ void DrawCell(int board[7][7], int x, int y, Color color) {
   }
 }
 
-Vector2 GetHoveredCellPosition() {
-  Vector2 position = GetMousePosition();
+struct Position GetHoveredCellPosition() {
+  Vector2 mousePosition = GetMousePosition();
   float cellWidth = (float)GetScreenWidth() / 7;
-  position.x /= cellWidth;
-  position.y /= cellWidth;
-  return position;
+  struct Position cellPosition = {mousePosition.x / cellWidth,
+                                  mousePosition.y / cellWidth};
+  return cellPosition;
 }
-

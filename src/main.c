@@ -21,16 +21,18 @@ int main() {
 
 void Update(struct State *state) {
   if (state->isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-    Vector2 cell = GetHoveredCellPosition();
-    int *val = &state->board[(int)cell.y][(int)cell.x];
+    struct Position cell = GetHoveredCellPosition();
+    int *val = &state->board[cell.y][cell.x];
     if (*val == 0) {
       *val = 1;
       state->isPlayersTurn = false;
     }
   } else if (!state->isPlayersTurn && !state->isThinking) {
     // make the best move
+    state->isThinking = true;
     struct Position bestMove = GetBestMove(state->board);
     state->board[bestMove.y][bestMove.x] = 2;
+    state->isThinking = false;
     state->isPlayersTurn = true;
   }
 }

@@ -1,11 +1,12 @@
 #include "../include/dev_help.h"
 #include "../include/cell.h"
+#include "../include/state.h"
 #include "raylib.h"
 #include <stdio.h>
 
 void DisplayCellPosition(Vector2 mousePosition) {
   char str[10];
-  Vector2 cellPosition = GetHoveredCellPosition();
+  struct Position cellPosition = GetHoveredCellPosition();
   sprintf(str, "%d, %d", (int)cellPosition.x, (int)cellPosition.y);
   DrawText(str, 1, 20, 20, BLACK);
 }
