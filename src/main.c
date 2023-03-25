@@ -2,6 +2,7 @@
 #include "../include/ai.h"
 #include "../include/cell.h"
 #include "../include/dev_help.h"
+#include "../include/result.h"
 #include "../include/state.h"
 #include "raylib.h"
 #include <stdio.h>
@@ -20,6 +21,8 @@ int main() {
 }
 
 void Update(struct State *state) {
+  if (state->isGameOver)
+    return;
   if (state->isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
     struct Position cell = GetHoveredCellPosition();
     int *val = &state->board[cell.y][cell.x];
@@ -35,6 +38,12 @@ void Update(struct State *state) {
     state->isThinking = false;
     state->isPlayersTurn = true;
   }
+  // check if the game is over
+  struct ListNode *winner = GetWinner(state->board);
+  if (winner != NULL) {
+    state->isGameOver = true;
+    FreeList(winner);
+  }
 }
 
 void DrawFrame(struct State *state) {
@@ -44,6 +53,10 @@ void DrawFrame(struct State *state) {
   DrawCells(state->board);
   DisplayMousePosition();
   DisplayCellPosition(GetMousePosition());
+  if (state->isGameOver) {
+    char *str = "Game Over";
+    DrawText(str, 400, 40, 20, BLACK);
+  }
 
   EndDrawing();
 }

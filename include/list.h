@@ -7,3 +7,4 @@ struct ListNode {
 
 void Push(struct ListNode *node, int x, int y);
 void FreeList(struct ListNode *node);
+struct ListNode *NewList();
