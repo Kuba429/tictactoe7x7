@@ -1,5 +1,4 @@
 #include "../include/result.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 struct ListNode *GetWinner(int board[7][7]) {

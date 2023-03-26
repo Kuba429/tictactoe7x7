@@ -1,4 +1,5 @@
 #include "../include/state.h"
+#include "stdlib.h"
 #include <stdbool.h>
 
 struct State NewState() {
@@ -6,6 +7,7 @@ struct State NewState() {
   state.isThinking = false;
   state.isPlayersTurn = true;
   state.isGameOver = false;
+  state.winner = NULL;
   ResetBoard(state.board);
   return state;
 }

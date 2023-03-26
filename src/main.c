@@ -5,7 +5,6 @@
 #include "../include/result.h"
 #include "../include/state.h"
 #include "raylib.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int main() {
@@ -42,7 +41,7 @@ void Update(struct State *state) {
   struct ListNode *winner = GetWinner(state->board);
   if (winner != NULL) {
     state->isGameOver = true;
-    FreeList(winner);
+    state->winner = winner;
   }
 }
 

@@ -11,6 +11,7 @@ struct State {
   bool isThinking;
   bool isPlayersTurn;
   bool isGameOver;
+  struct ListNode *winner;
   int board[7][7];
 };
 
