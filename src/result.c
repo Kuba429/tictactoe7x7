@@ -17,9 +17,10 @@ struct ListNode *GetWinner(int board[7][7]) {
   return NULL;
 }
 struct ListNode *CheckCell(int board[7][7], int x, int y) {
-  struct ListNode *horizontal = CheckHorizontal(board, x, y);
-  struct ListNode *vertical = CheckVertical(board, x, y);
-  return vertical;
+  struct ListNode *winner = NULL;
+  winner = MergeLists(winner, CheckHorizontal(board, x, y));
+  winner = MergeLists(winner, CheckVertical(board, x, y));
+  return winner;
 }
 struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
   int original = board[y][x];

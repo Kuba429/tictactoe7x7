@@ -24,6 +24,26 @@ void Push(struct ListNode *node, int x, int y) {
 
   oldLast->next = newLast;
 }
+// returns head of the merged list (head of the first argument)
+struct ListNode *MergeLists(struct ListNode *head1, struct ListNode *head2) {
+  if (head1 == NULL)
+    return head2;
+  if (head2 == NULL)
+    return head1;
+  struct ListNode *lastOfList1 = head1;
+  struct ListNode *firstOfList2 = head2;
+  while (lastOfList1->next != NULL) {
+    lastOfList1 = lastOfList1->next;
+  }
+
+  while (firstOfList2->previous != NULL) {
+    firstOfList2 = firstOfList2->previous;
+  }
+  lastOfList1->next = firstOfList2;
+  while (head1->previous != NULL)
+    head1 = head1->previous;
+  return head1;
+}
 
 void FreeList(struct ListNode *node) {
   struct ListNode *current = node->next;
