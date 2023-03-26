@@ -4,19 +4,14 @@
 
 // returns last(pushed) node
 struct ListNode *Push(struct ListNode *node, int x, int y) {
-  // if this is an "empty" node freshly created with NewList function, assign
-  // given values to the head(the only node)
-  if (node->x == -1 && node->y == -1) {
-    node->x = x;
-    node->y = y;
-    node->previous = NULL;
-    node->next = NULL;
-    return node;
-  }
   // if node is null create a new node and set the values to it
   if (node == NULL) {
-    *node = *NewList();
-    return Push(node, x, y);
+    struct ListNode *node = malloc(sizeof(struct ListNode));
+    node->previous = NULL;
+    node->next = NULL;
+    node->x = x;
+    node->y = y;
+    return node;
   }
   struct ListNode *oldLast = node;
   while (oldLast->next != NULL) {
@@ -68,13 +63,4 @@ void FreeList(struct ListNode *node) {
     free(toDelete);
   }
   free(node);
-}
-
-struct ListNode *NewList() {
-  struct ListNode *node = malloc(sizeof(struct ListNode));
-  node->x = -1;
-  node->y = -1;
-  node->previous = NULL;
-  node->next = NULL;
-  return node;
 }
