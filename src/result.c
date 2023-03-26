@@ -18,7 +18,8 @@ struct ListNode *GetWinner(int board[7][7]) {
 }
 struct ListNode *CheckCell(int board[7][7], int x, int y) {
   struct ListNode *horizontal = CheckHorizontal(board, x, y);
-  return horizontal;
+  struct ListNode *vertical = CheckVertical(board, x, y);
+  return vertical;
 }
 struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
   int original = board[y][x];
@@ -38,6 +39,26 @@ struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
   }
   struct ListNode *head = NewList();
   for (int x = smallestX; x <= largestX; x++) {
+    Push(head, x, y);
+  }
+  return head;
+}
+
+struct ListNode *CheckVertical(int board[7][7], int x, int y) {
+  int original = board[y][x];
+  int largestY = y;
+  int smallestY = y;
+  while (largestY + 1 < 7 && board[largestY + 1][x] == original) {
+    largestY++;
+  }
+  while (smallestY - 1 >= 0 && board[smallestY - 1][x] == original) {
+    smallestY--;
+  }
+  if (largestY <= smallestY || largestY - smallestY + 1 < 4) {
+    return NULL;
+  }
+  struct ListNode *head = NewList();
+  for (int y = smallestY; y <= largestY; y++) {
     Push(head, x, y);
   }
   return head;
