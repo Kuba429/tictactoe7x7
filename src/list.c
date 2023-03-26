@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Push(struct ListNode *node, int x, int y) {
+// returns last(pushed) node
+struct ListNode *Push(struct ListNode *node, int x, int y) {
   // if this is an "empty" node freshly created with NewList function, assign
   // given values to the head(the only node)
   if (node->x == -1 && node->y == -1) {
@@ -10,7 +11,12 @@ void Push(struct ListNode *node, int x, int y) {
     node->y = y;
     node->previous = NULL;
     node->next = NULL;
-    return;
+    return node;
+  }
+  // if node is null create a new node and set the values to it
+  if (node == NULL) {
+    *node = *NewList();
+    return Push(node, x, y);
   }
   struct ListNode *oldLast = node;
   while (oldLast->next != NULL) {
@@ -23,6 +29,7 @@ void Push(struct ListNode *node, int x, int y) {
   newLast->y = y;
 
   oldLast->next = newLast;
+  return newLast;
 }
 // returns head of the merged list (head of the first argument)
 struct ListNode *MergeLists(struct ListNode *head1, struct ListNode *head2) {

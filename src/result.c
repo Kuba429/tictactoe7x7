@@ -39,8 +39,11 @@ struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
     return NULL;
   }
   struct ListNode *head = NewList();
+  // avoid looping to the end of the list every time while still returning the
+  // head
+  struct ListNode *lastNode = head;
   for (int x = smallestX; x <= largestX; x++) {
-    Push(head, x, y);
+    lastNode = Push(lastNode, x, y);
   }
   return head;
 }
@@ -59,8 +62,9 @@ struct ListNode *CheckVertical(int board[7][7], int x, int y) {
     return NULL;
   }
   struct ListNode *head = NewList();
+  struct ListNode *lastNode = head;
   for (int y = smallestY; y <= largestY; y++) {
-    Push(head, x, y);
+    lastNode = Push(lastNode, x, y);
   }
   return head;
 }
