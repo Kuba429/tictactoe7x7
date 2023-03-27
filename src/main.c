@@ -5,6 +5,7 @@
 #include "../include/result.h"
 #include "../include/state.h"
 #include "raylib.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 int main() {
@@ -35,6 +36,8 @@ void Update(struct State *state) {
     // make the best move
     state->isThinking = true;
     struct Position bestMove = GetBestMove(state->board);
+    if (bestMove.x < 0)
+      printf("SOMETHING WENT WRONG");
     state->board[bestMove.y][bestMove.x] = 2;
     lastInsertedCell = bestMove;
     state->isThinking = false;
