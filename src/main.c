@@ -20,6 +20,7 @@ int main() {
 }
 
 void Update(struct State *state) {
+  struct Position lastInsertedCell = {-1, -1};
   if (state->isGameOver)
     return;
   if (state->isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
@@ -27,6 +28,7 @@ void Update(struct State *state) {
     int *val = &state->board[cell.y][cell.x];
     if (*val == 0) {
       *val = 1;
+      lastInsertedCell = cell;
       state->isPlayersTurn = false;
     }
   } else if (!state->isPlayersTurn && !state->isThinking) {
@@ -34,11 +36,15 @@ void Update(struct State *state) {
     state->isThinking = true;
     struct Position bestMove = GetBestMove(state->board);
     state->board[bestMove.y][bestMove.x] = 2;
+    lastInsertedCell = bestMove;
     state->isThinking = false;
     state->isPlayersTurn = true;
   }
   // check if the game is over
-  struct ListNode *winner = GetWinner(state->board);
+  if (lastInsertedCell.x == -1 || lastInsertedCell.y == -1)
+    return;
+  struct ListNode *winner =
+      CheckCell(state->board, lastInsertedCell.x, lastInsertedCell.y);
   if (winner != NULL) {
     state->isGameOver = true;
     state->winner = winner;
