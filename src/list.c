@@ -5,7 +5,7 @@
 struct ListNode *Push(struct ListNode *node, int x, int y) {
   // if node is null create a new node and set the values to it
   if (node == NULL) {
-    struct ListNode *node = malloc(sizeof(struct ListNode));
+    node = malloc(sizeof(struct ListNode));
     node->previous = NULL;
     node->next = NULL;
     node->x = x;
@@ -41,6 +41,7 @@ struct ListNode *MergeLists(struct ListNode *head1, struct ListNode *head2) {
     firstOfList2 = firstOfList2->previous;
   }
   lastOfList1->next = firstOfList2;
+  firstOfList2->previous = lastOfList1;
   while (head1->previous != NULL)
     head1 = head1->previous;
   return head1;
