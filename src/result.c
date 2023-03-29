@@ -1,5 +1,4 @@
 #include "../include/result.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 struct ListNode *GetWinningStreak(int board[7][7], int x, int y) {

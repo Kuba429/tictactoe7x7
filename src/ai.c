@@ -1,7 +1,6 @@
 #include "../include/ai.h"
 #include "../include/result.h"
 #include "../include/state.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 struct Position GetBestMove(int board[7][7]) {
@@ -15,7 +14,6 @@ struct Position GetBestMove(int board[7][7]) {
       int score =
           Minimax(board, (struct Position){x, y}, 2, false, 5, -10000, 10000);
       board[y][x] = 0;
-      printf("x: %d, y:%d, val: %d\n", x, y, score);
       if (score > bestScore) {
         bestMove.x = x;
         bestMove.y = y;
@@ -28,14 +26,11 @@ struct Position GetBestMove(int board[7][7]) {
 
 int Minimax(int board[7][7], struct Position lastCell, int turn,
             bool maximizing, int depth, int alpha, int beta) {
-  struct ListNode *res = GetWinningStreak(board, lastCell.x, lastCell.y);
-  if (res != NULL) {
-    int val = board[res->y][res->x];
-    // printf("x: %d, y: %d, val: %d\n", res->x, res->y, val);
-    FreeList(res);
-    if (val == 1)
+  int winner = GetWinner(board, lastCell.x, lastCell.y);
+  if (winner != -1) {
+    if (winner == 1)
       return -1 * (depth + 1);
-    if (val == 2)
+    if (winner == 2)
       return 1 * (depth + 1);
   }
   if (depth < 1)
