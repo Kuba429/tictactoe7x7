@@ -28,7 +28,7 @@ struct Position GetBestMove(int board[7][7]) {
 
 int Minimax(int board[7][7], struct Position lastCell, int turn,
             bool maximizing, int depth, int alpha, int beta) {
-  struct ListNode *res = CheckCell(board, lastCell.x, lastCell.y);
+  struct ListNode *res = GetWinningStreak(board, lastCell.x, lastCell.y);
   if (res != NULL) {
     int val = board[res->y][res->x];
     // printf("x: %d, y: %d, val: %d\n", res->x, res->y, val);

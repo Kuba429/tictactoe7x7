@@ -2,15 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct ListNode *CheckCell(int board[7][7], int x, int y) {
+struct ListNode *GetWinningStreak(int board[7][7], int x, int y) {
   struct ListNode *winner = NULL;
-  winner = MergeLists(winner, CheckHorizontal(board, x, y));
-  winner = MergeLists(winner, CheckVertical(board, x, y));
-  winner = MergeLists(winner, CheckDiagonalTopLeft(board, x, y));
-  winner = MergeLists(winner, CheckDiagonalTopRight(board, x, y));
+  winner = MergeLists(winner, GetHorizontalWinningStreak(board, x, y));
+  winner = MergeLists(winner, GetVerticalWinningStreak(board, x, y));
+  winner = MergeLists(winner, GetDiagonalTopLeftWinningStreak(board, x, y));
+  winner = MergeLists(winner, GetDiagonalTopRightWinningStreak(board, x, y));
   return winner;
 }
-struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
+// Get*WinningStreak returns linked list of nodes that decided about the result
+// Get*Winner only returns the winner (so 1,2 or -1)
+struct ListNode *GetHorizontalWinningStreak(int board[7][7], int x, int y) {
   int original = board[y][x];
   int largestX = x;
   int smallestX = x;
@@ -36,7 +38,7 @@ struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
   return head;
 }
 
-struct ListNode *CheckVertical(int board[7][7], int x, int y) {
+struct ListNode *GetVerticalWinningStreak(int board[7][7], int x, int y) {
   int original = board[y][x];
   int largestY = y;
   int smallestY = y;
@@ -57,7 +59,8 @@ struct ListNode *CheckVertical(int board[7][7], int x, int y) {
   return head;
 }
 
-struct ListNode *CheckDiagonalTopLeft(int board[7][7], int x, int y) {
+struct ListNode *GetDiagonalTopLeftWinningStreak(int board[7][7], int x,
+                                                 int y) {
   int original = board[y][x];
   int largestY = y;
   int largestX = x;
@@ -90,7 +93,8 @@ struct ListNode *CheckDiagonalTopLeft(int board[7][7], int x, int y) {
   return head;
 }
 
-struct ListNode *CheckDiagonalTopRight(int board[7][7], int x, int y) {
+struct ListNode *GetDiagonalTopRightWinningStreak(int board[7][7], int x,
+                                                  int y) {
   int original = board[y][x];
   int largestY = y;
   int largestX = x;

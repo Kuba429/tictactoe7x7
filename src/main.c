@@ -47,7 +47,7 @@ void Update(struct State *state) {
   if (lastInsertedCell.x == -1 || lastInsertedCell.y == -1)
     return;
   struct ListNode *winner =
-      CheckCell(state->board, lastInsertedCell.x, lastInsertedCell.y);
+      GetWinningStreak(state->board, lastInsertedCell.x, lastInsertedCell.y);
   if (winner != NULL) {
     state->isGameOver = true;
     state->winner = winner;
