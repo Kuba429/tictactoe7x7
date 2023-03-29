@@ -30,8 +30,8 @@ struct ListNode *CheckHorizontal(int board[7][7], int x, int y) {
   // avoid looping to the end of the list every time while still returning the
   // head
   struct ListNode *lastNode = head;
-  for (int x = smallestX; x <= largestX; x++) {
-    lastNode = Push(lastNode, x, y);
+  for (int newX = smallestX; newX <= largestX; newX++) {
+    lastNode = Push(lastNode, newX, y);
   }
   return head;
 }
@@ -51,8 +51,8 @@ struct ListNode *CheckVertical(int board[7][7], int x, int y) {
   }
   struct ListNode *head = Push(NULL, x, y);
   struct ListNode *lastNode = head;
-  for (int y = smallestY; y <= largestY; y++) {
-    lastNode = Push(lastNode, x, y);
+  for (int newY = smallestY; newY <= largestY; newY++) {
+    lastNode = Push(lastNode, x, newY);
   }
   return head;
 }
@@ -82,9 +82,9 @@ struct ListNode *CheckDiagonalTopLeft(int board[7][7], int x, int y) {
 
   struct ListNode *head = Push(NULL, x, y);
   struct ListNode *lastNode = head;
-  for (int i = smallestY, j = smallestX; i <= largestY && j <= largestX;
-       i++, j++) {
-    lastNode = Push(lastNode, j, i);
+  for (int newY = smallestY, newX = smallestX;
+       newY <= largestY && newX <= largestX; newY++, newX++) {
+    lastNode = Push(lastNode, newX, newY);
   }
 
   return head;
@@ -115,9 +115,9 @@ struct ListNode *CheckDiagonalTopRight(int board[7][7], int x, int y) {
 
   struct ListNode *head = Push(NULL, x, y);
   struct ListNode *lastNode = head;
-  for (int i = smallestY, j = largestX; i <= largestY && j >= smallestX;
-       i++, j--) {
-    lastNode = Push(lastNode, j, i);
+  for (int newY = smallestY, newX = largestX;
+       newY <= largestY && newX >= smallestX; newY++, newX--) {
+    lastNode = Push(lastNode, newX, newY);
   }
 
   return head;

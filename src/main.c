@@ -36,8 +36,8 @@ void Update(struct State *state) {
     // make the best move
     state->isThinking = true;
     struct Position bestMove = GetBestMove(state->board);
-    if (bestMove.x < 0)
-      printf("SOMETHING WENT WRONG");
+    if (bestMove.x == -1)
+      printf("SOMETHING WENT WRONG\n");
     state->board[bestMove.y][bestMove.x] = 2;
     lastInsertedCell = bestMove;
     state->isThinking = false;
