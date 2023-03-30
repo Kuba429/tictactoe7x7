@@ -3,6 +3,11 @@
 #include "../include/state.h"
 #include <stdlib.h>
 
+int weights[7][7] = {{1, 1, 1, 1, 1, 1, 1}, {1, 2, 2, 2, 2, 2, 1},
+                     {1, 2, 3, 3, 3, 2, 1}, {1, 2, 3, 4, 3, 2, 1},
+                     {1, 2, 3, 3, 3, 2, 1}, {1, 2, 2, 2, 2, 2, 1},
+                     {1, 1, 1, 1, 1, 1, 1}};
+
 struct Position GetBestMove(int board[7][7]) {
   struct Position bestMove = {-1, -1};
   int bestScore = -10000;
@@ -14,7 +19,12 @@ struct Position GetBestMove(int board[7][7]) {
       int score =
           Minimax(board, (struct Position){x, y}, 2, false, 5, -10000, 10000);
       board[y][x] = 0;
-      if (score > bestScore) {
+      // this is the best move if:
+      // it's score is higher than the current highest
+      // or it has the same score but is closer to the center
+      if (score > bestScore ||
+          (score == bestScore &&
+           weights[y][x] > weights[bestMove.y][bestMove.x])) {
         bestMove.x = x;
         bestMove.y = y;
         bestScore = score;
