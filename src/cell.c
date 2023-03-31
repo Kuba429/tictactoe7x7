@@ -1,6 +1,7 @@
 #include "../include/cell.h"
 #include "../include/state.h"
 #include "raylib.h"
+#include <stdio.h>
 
 #define HOVER_COLOR                                                            \
   (Color) { 0, 0, 0, 30 }
@@ -22,13 +23,25 @@ void DrawCell(int board[7][7], int x, int y, Color color) {
   int screenY = y * (cellWidth + 1);
   DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, color);
   switch (board[y][x]) {
-    // colors for now, will be shapes in the future
-  case 1:
-    DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, RED);
+    // Player 1, draw X symbol
+  case 1: {
+    DrawLineEx((Vector2){screenX + 10, screenY + 10},
+               (Vector2){screenX + cellWidth - 10, screenY + cellWidth - 10}, 5,
+               RED);
+    DrawLineEx((Vector2){screenX + cellWidth - 10, screenY + 10},
+               (Vector2){screenX + 10, screenY + cellWidth - 10}, 5, RED);
     break;
-  case 2:
-    DrawRectangle(screenX, screenY, cellWidth - 2, cellWidth - 2, BLUE);
+  }
+  // Player 2, draw O symbol
+  case 2: {
+    int centerX = screenX + cellWidth / 2;
+    int centerY = screenY + cellWidth / 2;
+    int innerRadius = cellWidth / 2 - 15;
+    int outerRadius = cellWidth / 2 - 10;
+    DrawRing((Vector2){centerX, centerY}, innerRadius, outerRadius, 0, 360, 32,
+             BLUE);
     break;
+  }
   }
 }
 
