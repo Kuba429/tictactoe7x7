@@ -52,6 +52,9 @@ void Update(struct State *state) {
     state->isGameOver = true;
     state->winner = winner;
   }
+  // reset lastInsertedCell so looking for winner can be skipped until something changes
+  lastInsertedCell.x = -1;
+  lastInsertedCell.y = -1;
 }
 
 void DrawFrame(struct State *state) {
