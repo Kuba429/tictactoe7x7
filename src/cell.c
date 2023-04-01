@@ -45,6 +45,17 @@ void DrawCell(int board[7][7], int x, int y, Color color) {
   }
 }
 
+void DrawWinningCells(int board[7][7], struct ListNode node) {
+  while (node.previous != NULL) {
+    node = *node.previous;
+  }
+  while (node.next != NULL) {
+    DrawCell(board, node.x, node.y, WHITE);
+    node = *node.next;
+  }
+  DrawCell(board, node.x, node.y, WHITE);
+}
+
 struct Position GetHoveredCellPosition() {
   Vector2 mousePosition = GetMousePosition();
   float cellWidth = (float)GetScreenWidth() / 7;

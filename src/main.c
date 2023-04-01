@@ -62,8 +62,9 @@ void DrawFrame(struct State *state) {
   DisplayMousePosition();
   DisplayCellPosition(GetMousePosition());
   if (state->isGameOver) {
-    char *str = "Game Over";
-    DrawText(str, 400, 40, 20, BLACK);
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
+                  (Color){0, 0, 0, 50});
+    DrawWinningCells(state->board, *state->winner);
   }
 
   EndDrawing();
