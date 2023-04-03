@@ -50,7 +50,10 @@ void Update(struct State *state) {
   if (winner != NULL) {
     state->isGameOver = true;
     state->winner = winner;
-  } else if (!state->isPlayersTurn) {
+  } else {
+    state->isGameOver = IsBoardFull(state->board);
+  }
+  if (!state->isPlayersTurn) {
     // kind of a buffer to let UI update and stuff
     state->isThinking = true;
   }
@@ -70,17 +73,34 @@ void DrawFrame(struct State *state) {
   if (state->isGameOver) {
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
                   (Color){0, 0, 0, 50});
-    DrawWinningCells(state->board, *state->winner);
+    int fontSize = 70;
+    char *text = "It's a draw!";
+    if (state->winner != NULL) {
+      // someone won
+      DrawWinningCells(state->board, *state->winner);
+      text = "Someone won!";
+      int winner = state->board[state->winner->y][state->winner->x];
+      if (winner == 1)
+        text = "You won!";
+      else
+        text = "You lost";
+    } else {
+      // it's a draw
+      text = "It's a draw!";
+    }
+    int textWidth = MeasureText(text, fontSize);
+    DrawText(text, GetScreenWidth() / 2 - textWidth / 2,
+             GetScreenHeight() / 2 - fontSize / 2, fontSize, BLACK);
   }
   // Indicate that the AI is thinking
-  if (state->isThinking) {
+  if (state->isThinking && !state->isGameOver) {
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
                   (Color){0, 0, 0, 50});
     int fontSize = 70;
     char *text = "I'm thinking...";
-    int size = MeasureText(text, fontSize);
-    DrawText(text, GetScreenWidth() / 2 - size / 2, GetScreenHeight() / 2,
-             fontSize, BLACK);
+    int textWidth = MeasureText(text, fontSize);
+    DrawText(text, GetScreenWidth() / 2 - textWidth / 2,
+             GetScreenHeight() / 2 - fontSize / 2, fontSize, BLACK);
   }
 
   EndDrawing();

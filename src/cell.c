@@ -16,6 +16,15 @@ void DrawCells(int board[7][7]) {
   struct Position cell = GetHoveredCellPosition();
   DrawCell(board, cell.x, cell.y, HOVER_COLOR);
 }
+bool IsBoardFull(int board[7][7]) {
+  for (int y = 0; y < 7; y++) {
+    for (int x = 0; x < 7; x++) {
+      if (board[y][x] == 0)
+        return false;
+    }
+  }
+  return true;
+}
 
 void DrawCell(int board[7][7], int x, int y, Color color) {
   int cellWidth = GetScreenWidth() / 7;
