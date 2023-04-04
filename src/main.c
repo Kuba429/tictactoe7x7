@@ -22,6 +22,9 @@ int main() {
 
 void Update(struct State *state) {
   struct Position lastInsertedCell = {-1, -1};
+  if (IsKeyDown(KEY_R)) {
+    *state = NewState();
+  }
   if (state->isGameOver)
     return;
   if (state->isPlayersTurn && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
